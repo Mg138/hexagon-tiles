@@ -1,5 +1,5 @@
-use std::ops::Neg;
 use num::PrimInt;
+use std::ops::Neg;
 
 #[derive(Debug, Clone, Copy, Eq, PartialEq)]
 pub enum Offset {
@@ -11,7 +11,7 @@ impl Offset {
     pub fn into<I: PrimInt + Neg<Output = I>>(self) -> I {
         match self {
             Offset::Even => I::one(),
-            Offset::Odd => -I::one()
+            Offset::Odd => -I::one(),
         }
     }
 }

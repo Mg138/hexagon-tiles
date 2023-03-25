@@ -1,6 +1,6 @@
-use std::ops::{Add, Mul, Neg, Sub};
-use num::PrimInt;
 use crate::hex::Hex;
+use num::PrimInt;
+use std::ops::{Add, Mul, Neg, Sub};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub struct DoubledCoord<I> {

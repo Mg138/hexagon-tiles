@@ -1,7 +1,7 @@
-use std::ops::{Add, Div, Mul, Neg, Sub};
-use num::PrimInt;
 use crate::hex::Hex;
 use crate::util::Offset;
+use num::PrimInt;
+use std::ops::{Add, Div, Mul, Neg, Sub};
 
 #[derive(Debug, Clone, Copy, Eq, PartialEq, Hash)]
 pub struct OffsetCoord<I> {
@@ -12,27 +12,31 @@ pub struct OffsetCoord<I> {
 impl<I: PrimInt + Neg<Output = I>> OffsetCoord<I> {
     pub fn q_from_cube(hex: Hex<I>, offset: Offset) -> Self {
         let col = hex.q();
-        let row = hex.r() + (hex.q() + offset.into::<I>() * (hex.q() & I::one())) / (I::one() + I::one());
+        let row =
+            hex.r() + (hex.q() + offset.into::<I>() * (hex.q() & I::one())) / (I::one() + I::one());
 
         Self { col, row }
     }
 
     pub fn q_to_cube(self, offset: Offset) -> Hex<I> {
         let q = self.col;
-        let r = self.row - (self.col + offset.into::<I>() * (self.col & I::one())) / (I::one() + I::one());
+        let r = self.row
+            - (self.col + offset.into::<I>() * (self.col & I::one())) / (I::one() + I::one());
 
         Hex::new(q, r)
     }
 
     pub fn r_from_cube(hex: Hex<I>, offset: Offset) -> Self {
-        let col = hex.q() + (hex.r() + offset.into::<I>() * (hex.r() & I::one())) / (I::one() + I::one());
+        let col =
+            hex.q() + (hex.r() + offset.into::<I>() * (hex.r() & I::one())) / (I::one() + I::one());
         let row = hex.r();
 
         Self { col, row }
     }
 
     pub fn r_to_cube(self, offset: Offset) -> Hex<I> {
-        let q = self.col - (self.row + offset.into::<I>() * (self.row & I::one())) / (I::one() + I::one());
+        let q = self.col
+            - (self.row + offset.into::<I>() * (self.row & I::one())) / (I::one() + I::one());
         let r = self.row;
 
         Hex::new(q, r)

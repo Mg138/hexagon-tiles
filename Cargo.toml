@@ -1,14 +1,11 @@
 [package]
-name = "hexagon_tiles"
-version = "0.1.0"
-authors = ["Igal Alkon"]
+name = "hexagon-tiles"
+version = "0.2.0"
+authors = ["Igal Alkon", "Madeline Sparkles"]
 edition = "2018"
 description = "A utility library that allows working with the hexagon shape and related math."
-license-file = "LICENSE"
-repository = "https://github.com/alkavan/hexagon-tiles"
-homepage = "https://github.com/alkavan/hexagon-tiles"
-readme = "README.md"
-keywords = ["gamedev", "math"]
+license = "Zlib"
+repository = "https://github.com/Mg138/hexagon-tiles"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

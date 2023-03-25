@@ -1,11 +1,16 @@
+use float_eq::assert_float_eq;
 use hexagon_tiles::doubled::DoubledCoord;
 use hexagon_tiles::fractional::FractionalHex;
 use hexagon_tiles::hex::Hex;
-use hexagon_tiles::point::{Point, point};
-use hexagon_tiles::layout::{corner_offset, hex_to_pixel, Layout, LAYOUT_ORIENTATION_FLAT, LAYOUT_ORIENTATION_POINTY, pixel_to_hex, polygon_corners};
+use hexagon_tiles::layout::{
+    corner_offset, hex_to_pixel, pixel_to_hex, polygon_corners, Layout, LAYOUT_ORIENTATION_FLAT,
+    LAYOUT_ORIENTATION_POINTY,
+};
 use hexagon_tiles::offset::OffsetCoord;
+use hexagon_tiles::point::{point, Point};
 use hexagon_tiles::traits::{HexDirection, HexMath, HexRotate, HexRound};
 use hexagon_tiles::util::Offset;
+use std::collections::HashMap;
 
 #[test]
 fn test_s_component() {
@@ -40,19 +45,13 @@ fn test_hex_direction() {
 #[test]
 fn test_hex_neighbor() {
     let expected_neighbor = Hex::new(1, -3);
-    assert_eq!(
-        expected_neighbor,
-        Hex::new(1, -2).neighbor( 2)
-    );
+    assert_eq!(expected_neighbor, Hex::new(1, -2).neighbor(2));
 }
 
 #[test]
 fn test_hex_diagonal() {
     let expected_neighbor = Hex::new(-1, -1);
-    assert_eq!(
-        expected_neighbor,
-        Hex::new(1, -2).diagonal(3)
-    );
+    assert_eq!(expected_neighbor, Hex::new(1, -2).diagonal(3));
 }
 
 #[test]
@@ -86,9 +85,7 @@ fn test_hex_round() {
     let b = FractionalHex::new(1.0, -1.0);
     let c = FractionalHex::new(0.0, -1.0);
 
-    let actual_round_1: Hex<i32> = a
-        .lerp(FractionalHex::new(10.0, -20.0), 0.5)
-        .round();
+    let actual_round_1: Hex<i32> = a.lerp(FractionalHex::new(10.0, -20.0), 0.5).round();
 
     let expected_round_1 = Hex::new(5, -10);
 
@@ -101,7 +98,8 @@ fn test_hex_round() {
     let actual_round_4: Hex<i32> = FractionalHex::new(
         a.q() * 0.4 + b.q() * 0.3 + c.q() * 0.3,
         a.r() * 0.4 + b.r() * 0.3 + c.r() * 0.3,
-    ).round();
+    )
+    .round();
 
     assert_eq!(expected_round_4, actual_round_4);
 
@@ -109,8 +107,9 @@ fn test_hex_round() {
     let actual_round_5: Hex<i32> = FractionalHex::new(
         a.q() * 0.3 + b.q() * 0.3 + c.q() * 0.4,
         a.r() * 0.3 + b.r() * 0.3 + c.r() * 0.4,
-    ).round();
-    
+    )
+    .round();
+
     assert_eq!(expected_round_5, actual_round_5);
 }
 
@@ -335,4 +334,34 @@ pub fn test_doubled_to_cube() {
 
     let coord2 = DoubledCoord { col: 4, row: 2 };
     assert_eq!(expected_hex, DoubledCoord::r_to_cube(coord2));
+}
+
+#[test]
+fn test_fractional_behavior() {
+    let a = FractionalHex::new(1.0, -2.0);
+    let b = FractionalHex::new(1.1, -2.2);
+    let c = FractionalHex::new(1.000_000_000_000_000_9, -2.000_000_000_000_001_3);
+    let eps = f64::EPSILON;
+
+    assert_ne!(1.0, c.q());
+    assert_ne!(-2.0, c.r());
+    assert_ne!(1.0, c.s());
+
+    assert_float_eq!(a, b, abs_all <= 0.25);
+    assert_float_eq!(a, c, rmax_all <= 4.0 * eps);
+    assert_float_eq!(a, c, ulps_all <= 4_u64);
+}
+
+#[test]
+pub fn test_hashing() {
+    let mut map: HashMap<Hex<i32>, &'static str> = HashMap::new();
+    map.insert(Hex::new(1, 1), "foo");
+
+    let hex1 = Hex::new(1, 1);
+    let hex2 = Hex::new(1, 2);
+
+    assert!(map.get(&hex2).is_none());
+    assert!(map.get(&hex1).is_some());
+
+    assert_eq!(*map.get(&hex1).unwrap(), "foo");
 }

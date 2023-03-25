@@ -1,10 +1,10 @@
+use crate::fractional::FractionalHex;
+use num::PrimInt;
 use std::f64::consts::PI;
 use std::ops::Neg;
-use num::PrimInt;
-use crate::fractional::FractionalHex;
 
 use crate::hex::Hex;
-use crate::point::{Point, point};
+use crate::point::{point, Point};
 
 const SQRT_3: f64 = 1.73205080756888;
 
@@ -52,7 +52,10 @@ pub struct Layout {
     pub origin: Point,
 }
 
-pub fn hex_to_pixel<I: PrimInt + Neg<Output = I> + Into<f64>>(layout: Layout, hex: Hex<I>) -> Point {
+pub fn hex_to_pixel<I: PrimInt + Neg<Output = I> + Into<f64>>(
+    layout: Layout,
+    hex: Hex<I>,
+) -> Point {
     let orientation = layout.orientation;
     let size = layout.size;
     let origin = layout.origin;
@@ -88,7 +91,10 @@ pub fn corner_offset(layout: Layout, corner: i32) -> Point {
     point(size.x * angle.cos(), size.y * angle.sin())
 }
 
-pub fn polygon_corners<I: PrimInt + Neg<Output = I> + Into<f64>>(layout: Layout, hex: Hex<I>) -> Vec<Point> {
+pub fn polygon_corners<I: PrimInt + Neg<Output = I> + Into<f64>>(
+    layout: Layout,
+    hex: Hex<I>,
+) -> Vec<Point> {
     let center = hex_to_pixel(layout, hex);
 
     (0..(6))

@@ -239,8 +239,7 @@ impl HexMath<i8> for Hex<i8> {
             .map(|i| {
                 let i: F = NumCast::from(i).unwrap();
 
-                a_nudge.lerp(b_nudge, step * i)
-                    .round()
+                a_nudge.lerp(b_nudge, step * i).round()
             })
             .collect()
     }
@@ -282,8 +281,7 @@ impl HexMath<i16> for Hex<i16> {
             .map(|i| {
                 let i: F = NumCast::from(i).unwrap();
 
-                a_nudge.lerp(b_nudge, step * i)
-                    .round()
+                a_nudge.lerp(b_nudge, step * i).round()
             })
             .collect()
     }
@@ -325,8 +323,7 @@ impl HexMath<i32> for Hex<i32> {
             .map(|i| {
                 let i: F = NumCast::from(i).unwrap();
 
-                a_nudge.lerp(b_nudge, step * i)
-                    .round()
+                a_nudge.lerp(b_nudge, step * i).round()
             })
             .collect()
     }
@@ -368,8 +365,7 @@ impl HexMath<i64> for Hex<i64> {
             .map(|i| {
                 let i: F = NumCast::from(i).unwrap();
 
-                a_nudge.lerp(b_nudge, step * i)
-                    .round()
+                a_nudge.lerp(b_nudge, step * i).round()
             })
             .collect()
     }
