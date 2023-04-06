@@ -14,9 +14,7 @@ pub trait HexMath<I>: Sized {
     where
         Self: Sub<Output = Self>,
     {
-        let v = to - self;
-
-        return v.length();
+        (to - self).length()
     }
 
     fn line<F: Float>(self, to: Self) -> Vec<Self>;

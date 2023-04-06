@@ -6,7 +6,7 @@ use num::{Float, NumCast, PrimInt, Signed};
 use crate::fractional::frac_hex;
 use crate::traits::{HexDirection, HexMath, HexRotate, HexRound};
 
-#[derive(Debug, Clone, Copy, Eq, PartialEq, Hash)]
+#[derive(Debug, Clone, Copy, Eq, PartialEq, Hash, Default)]
 pub struct Hex<I> {
     q: I,
     r: I,
@@ -205,14 +205,14 @@ impl<I: PrimInt + Neg<Output = I>> HexRotate for Hex<I> {
 
 impl HexMath<i8> for Hex<i8> {
     fn length(self) -> i8 {
-        return (self.q.abs() + self.r.abs() + self.s.abs()) / 2;
+        (self.q.abs() + self.r.abs() + self.s.abs()) / 2
     }
 
     /**
      * F is the intermediate type.
      */
     fn line<F: Float>(self, to: Self) -> Vec<Self> {
-        let n = self.distance(to.clone());
+        let n = self.distance(to);
 
         let small_one: F = NumCast::from(1e-06).unwrap();
         let small_two: F = NumCast::from(2e-06).unwrap();
@@ -247,14 +247,14 @@ impl HexMath<i8> for Hex<i8> {
 
 impl HexMath<i16> for Hex<i16> {
     fn length(self) -> i16 {
-        return (self.q.abs() + self.r.abs() + self.s.abs()) / 2;
+        (self.q.abs() + self.r.abs() + self.s.abs()) / 2
     }
 
     /**
      * F is the intermediate type.
      */
     fn line<F: Float>(self, to: Self) -> Vec<Self> {
-        let n = self.distance(to.clone());
+        let n = self.distance(to);
 
         let small_one: F = NumCast::from(1e-06).unwrap();
         let small_two: F = NumCast::from(2e-06).unwrap();
@@ -289,14 +289,14 @@ impl HexMath<i16> for Hex<i16> {
 
 impl HexMath<i32> for Hex<i32> {
     fn length(self) -> i32 {
-        return (self.q.abs() + self.r.abs() + self.s.abs()) / 2;
+        (self.q.abs() + self.r.abs() + self.s.abs()) / 2
     }
 
     /**
      * F is the intermediate type.
      */
     fn line<F: Float>(self, to: Self) -> Vec<Self> {
-        let n = self.distance(to.clone());
+        let n = self.distance(to);
 
         let small_one: F = NumCast::from(1e-06).unwrap();
         let small_two: F = NumCast::from(2e-06).unwrap();
@@ -331,14 +331,14 @@ impl HexMath<i32> for Hex<i32> {
 
 impl HexMath<i64> for Hex<i64> {
     fn length(self) -> i64 {
-        return (self.q.abs() + self.r.abs() + self.s.abs()) / 2;
+        (self.q.abs() + self.r.abs() + self.s.abs()) / 2
     }
 
     /**
      * F is the intermediate type.
      */
     fn line<F: Float>(self, to: Self) -> Vec<Self> {
-        let n = self.distance(to.clone());
+        let n = self.distance(to);
 
         let small_one: F = NumCast::from(1e-06).unwrap();
         let small_two: F = NumCast::from(2e-06).unwrap();

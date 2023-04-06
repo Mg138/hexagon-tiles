@@ -97,7 +97,7 @@ pub fn polygon_corners<I: PrimInt + Neg<Output = I> + Into<f64>>(
 ) -> Vec<Point> {
     let center = hex_to_pixel(layout, hex);
 
-    (0..(6))
+    (0..6)
         .map(|i| {
             let offset = corner_offset(layout, i);
 

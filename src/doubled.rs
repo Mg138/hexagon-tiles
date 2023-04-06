@@ -2,7 +2,7 @@ use crate::hex::Hex;
 use num::PrimInt;
 use std::ops::{Add, Mul, Neg, Sub};
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash, Default)]
 pub struct DoubledCoord<I> {
     pub col: I,
     pub row: I,

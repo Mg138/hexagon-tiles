@@ -3,7 +3,7 @@ use crate::util::Offset;
 use num::PrimInt;
 use std::ops::{Add, Div, Mul, Neg, Sub};
 
-#[derive(Debug, Clone, Copy, Eq, PartialEq, Hash)]
+#[derive(Debug, Clone, Copy, Eq, PartialEq, Hash, Default)]
 pub struct OffsetCoord<I> {
     pub col: I,
     pub row: I,

@@ -10,7 +10,7 @@ pub fn point(x: f64, y: f64) -> Point {
     debug_ulps_diff = "PointDebugUlpsDiff",
     debug_ulps_diff_derive = "Clone, Copy, Debug, PartialEq"
 )]
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq, Default)]
 pub struct Point {
     pub x: f64,
     pub y: f64,
