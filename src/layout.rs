@@ -1,5 +1,5 @@
 use crate::fractional::FractionalHex;
-use num::PrimInt;
+use num::{Float, PrimInt};
 use std::f64::consts::PI;
 use std::ops::Neg;
 
@@ -55,6 +55,20 @@ pub struct Layout {
 pub fn hex_to_pixel<I: PrimInt + Neg<Output = I> + Into<f64>>(
     layout: Layout,
     hex: Hex<I>,
+) -> Point {
+    let orientation = layout.orientation;
+    let size = layout.size;
+    let origin = layout.origin;
+
+    let x = (orientation.f0 * hex.q().into() + orientation.f1 * hex.r().into()) * size.x;
+    let y = (orientation.f2 * hex.q().into() + orientation.f3 * hex.r().into()) * size.y;
+
+    point(x + origin.x, y + origin.y)
+}
+
+pub fn frac_hex_to_pixel<F: Float + Neg<Output = F> + Into<f64>>(
+    layout: Layout,
+    hex: FractionalHex<F>,
 ) -> Point {
     let orientation = layout.orientation;
     let size = layout.size;
