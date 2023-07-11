@@ -1,7 +1,7 @@
 use float_eq::assert_float_eq;
 use hexagon_tiles::doubled::DoubledCoord;
 use hexagon_tiles::fractional::FractionalHex;
-use hexagon_tiles::hex::Hex;
+use hexagon_tiles::hex::{Hex, PackedHex};
 use hexagon_tiles::layout::{
     corner_offset, hex_to_pixel, pixel_to_hex, polygon_corners, Layout, LAYOUT_ORIENTATION_FLAT,
     LAYOUT_ORIENTATION_POINTY,
@@ -364,4 +364,26 @@ pub fn test_hashing() {
     assert!(map.get(&hex1).is_some());
 
     assert_eq!(*map.get(&hex1).unwrap(), "foo");
+}
+
+#[test]
+pub fn test_packed_i32() {
+    let packed = PackedHex::<i32>::new(0x0FFFFFFF, 0x0FFFFFFF);
+
+    let n: i64 = packed.into();
+    assert_eq!(n, 0x0FFFFFFF0FFFFFFF);
+
+    let unpacked: PackedHex<i32> = n.into();
+    assert_eq!(packed, unpacked);
+}
+
+#[test]
+pub fn test_packed_i16() {
+    let packed = PackedHex::<i16>::new(0x0FFF, 0x0FFF);
+
+    let n: i32 = packed.into();
+    assert_eq!(n, 0x0FFF0FFF);
+
+    let unpacked: PackedHex<i16> = n.into();
+    assert_eq!(packed, unpacked);
 }
