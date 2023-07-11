@@ -12,10 +12,6 @@ pub struct PackedHex<I> {
     r: I,
 }
 
-pub const fn packed_hex<I: PrimInt + Neg<Output = I>>(q: I, r: I) -> PackedHex<I> {
-    PackedHex::new(q, r)
-}
-
 impl<I: PrimInt + Neg<Output = I>> From<Hex<I>> for PackedHex<I> {
     fn from(value: Hex<I>) -> Self {
         Self::new(value.q, value.r)
@@ -129,94 +125,6 @@ impl<I: PrimInt + Neg<Output = I>> Neg for PackedHex<I> {
 
         Self { q, r }
     }
-}
-
-impl HexDirection for PackedHex<i8> {
-    #[rustfmt::skip]
-    const NEIGHBORS: [Self; 6] = [
-        packed_hex( 1,  0),
-        packed_hex( 1, -1),
-        packed_hex( 0, -1),
-        packed_hex(-1,  0),
-        packed_hex(-1,  1),
-        packed_hex( 0,  1),
-    ];
-
-    #[rustfmt::skip]
-    const DIAGONALS: [Self; 6] = [
-        packed_hex( 2, -1),
-        packed_hex( 1, -2),
-        packed_hex(-1, -1),
-        packed_hex(-2,  1),
-        packed_hex(-1,  2),
-        packed_hex( 1,  1),
-    ];
-}
-
-impl HexDirection for PackedHex<i16> {
-    #[rustfmt::skip]
-    const NEIGHBORS: [Self; 6] = [
-        packed_hex( 1,  0),
-        packed_hex( 1, -1),
-        packed_hex( 0, -1),
-        packed_hex(-1,  0),
-        packed_hex(-1,  1),
-        packed_hex( 0,  1),
-    ];
-
-    #[rustfmt::skip]
-    const DIAGONALS: [Self; 6] = [
-        packed_hex( 2, -1),
-        packed_hex( 1, -2),
-        packed_hex(-1, -1),
-        packed_hex(-2,  1),
-        packed_hex(-1,  2),
-        packed_hex( 1,  1),
-    ];
-}
-
-impl HexDirection for PackedHex<i32> {
-    #[rustfmt::skip]
-    const NEIGHBORS: [Self; 6] = [
-        packed_hex( 1,  0),
-        packed_hex( 1, -1),
-        packed_hex( 0, -1),
-        packed_hex(-1,  0),
-        packed_hex(-1,  1),
-        packed_hex( 0,  1),
-    ];
-
-    #[rustfmt::skip]
-    const DIAGONALS: [Self; 6] = [
-        packed_hex( 2, -1),
-        packed_hex( 1, -2),
-        packed_hex(-1, -1),
-        packed_hex(-2,  1),
-        packed_hex(-1,  2),
-        packed_hex( 1,  1),
-    ];
-}
-
-impl HexDirection for PackedHex<i64> {
-    #[rustfmt::skip]
-    const NEIGHBORS: [Self; 6] = [
-        packed_hex( 1,  0),
-        packed_hex( 1, -1),
-        packed_hex( 0, -1),
-        packed_hex(-1,  0),
-        packed_hex(-1,  1),
-        packed_hex( 0,  1),
-    ];
-
-    #[rustfmt::skip]
-    const DIAGONALS: [Self; 6] = [
-        packed_hex( 2, -1),
-        packed_hex( 1, -2),
-        packed_hex(-1, -1),
-        packed_hex(-2,  1),
-        packed_hex(-1,  2),
-        packed_hex( 1,  1),
-    ];
 }
 
 #[derive(Debug, Clone, Copy, Eq, PartialEq, Hash, Default)]
