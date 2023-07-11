@@ -188,17 +188,17 @@ impl HexDirection for Hex<i64> {
 impl<I: PrimInt + Neg<Output = I>> HexRotate for Hex<I> {
     fn rotate_left(self) -> Self {
         Self {
-            q: -self.s,
-            r: -self.q,
-            s: -self.r,
+            q: -self.r,
+            r: -self.s,
+            s: -self.q,
         }
     }
 
     fn rotate_right(self) -> Self {
         Self {
-            q: -self.r,
-            r: -self.s,
-            s: -self.q,
+            q: -self.s,
+            r: -self.q,
+            s: -self.r,
         }
     }
 }

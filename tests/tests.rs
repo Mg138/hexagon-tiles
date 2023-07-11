@@ -65,16 +65,16 @@ fn test_hex_distance() {
 
 #[test]
 fn test_hex_rotate_right() {
-    let hex = Hex::new(1, -3);
-    let hex_expected = Hex::new(3, -2);
+    let hex = Hex::<i32>::NEIGHBORS[2];
+    let hex_expected = Hex::<i32>::NEIGHBORS[3];
 
     assert_eq!(hex_expected, hex.rotate_right());
 }
 
 #[test]
 fn test_hex_rotate_left() {
-    let hex = Hex::new(1, -3);
-    let hex_expected = Hex::new(-2, -1);
+    let hex = Hex::<i32>::NEIGHBORS[2];
+    let hex_expected = Hex::<i32>::NEIGHBORS[1];
 
     assert_eq!(hex_expected, hex.rotate_left());
 }
